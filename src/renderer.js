@@ -19,6 +19,8 @@ export class Renderer {
 
     this.svg.setAttribute('width', cols * TILE_SIZE);
     this.svg.setAttribute('height', rows * TILE_SIZE);
+    this.svg.setAttribute('viewBox', `0 0 ${cols * TILE_SIZE} ${rows * TILE_SIZE}`);
+    this.svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
     this.svg.innerHTML = ''; // Clear existing
 
     // Render static elements (walls, pellets)
