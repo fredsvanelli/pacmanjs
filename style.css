@@ -1,0 +1,268 @@
+:root {
+    --bg-color: #111;
+    --board-bg: #000;
+    --text-color: #fff;
+    --accent-color: #ffff00;
+    --font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Pixelify Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#ui-header {
+    display: flex;
+    gap: 40px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.label {
+    font-size: 14px;
+    color: #ccc;
+}
+
+#board-wrapper {
+    position: relative;
+    border: 4px solid #222;
+    background-color: var(--board-bg);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#game-board {
+    display: block;
+    /* Removes bottom whitespace */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--accent-color);
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: 2px 2px 0 #000;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.overlay.hidden {
+    display: none;
+}
+
+.sub-text {
+    font-size: 24px;
+    color: #fff;
+    margin-top: 20px;
+    animation: blink 1s infinite;
+}
+
+#ui-footer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.controls-hint {
+    font-size: 12px;
+    color: #666;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Mobile Controls (Hidden by default) */
+#mobile-controls {
+    display: none;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.d-pad-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.d-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
+    gap: 0;
+}
+
+.d-btn {
+    background: #222;
+    border: 1px solid #444;
+    color: #888;
+    font-size: 20px;
+    cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.d-btn:active {
+    background: #444;
+    color: #fff;
+}
+
+/* D-Pad Shape Styling */
+.d-up {
+    grid-area: 1 / 2;
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
+}
+
+.d-left {
+    grid-area: 2 / 1;
+    border-radius: 10px 0 0 10px;
+    border-right: none;
+}
+
+.d-right {
+    grid-area: 2 / 3;
+    border-radius: 0 10px 10px 0;
+    border-left: none;
+}
+
+.d-down {
+    grid-area: 3 / 2;
+    border-radius: 0 0 10px 10px;
+    border-top: none;
+}
+
+.d-pad-center {
+    grid-area: 2 / 2;
+    background: #222;
+    border: none;
+    position: relative;
+}
+
+.d-pad-center::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #111;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+}
+
+.action-btn {
+    background: #d00;
+    border: 4px solid #a00;
+    color: white;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 18px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #800;
+}
+
+.action-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #800;
+}
+
+.action-pad {
+    display: flex;
+    align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    body {
+        height: auto;
+        min-height: 100vh;
+        padding: 10px 0;
+    }
+
+    #game-container {
+        gap: 5px;
+    }
+
+    #mobile-controls {
+        display: flex;
+    }
+
+    #board-wrapper {
+        width: 95vw;
+        max-width: 500px;
+        height: auto;
+    }
+
+    #game-board {
+        width: 100%;
+        height: auto;
+    }
+
+    .controls-hint {
+        display: none;
+    }
+
+    #ui-header {
+        font-size: 16px;
+        gap: 15px;
+    }
+
+    #ui-footer {
+        font-size: 12px;
+    }
+}

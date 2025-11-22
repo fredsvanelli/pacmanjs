@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man Clone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="game-container">
+        <div id="ui-header">
+            <div class="score-box">
+                <span class="label">SCORE</span>
+                <span id="score-display">0</span>
+            </div>
+            <div class="score-box">
+                <span class="label">HIGH SCORE</span>
+                <span id="high-score-display">0</span>
+            </div>
+        </div>
+
+        <div id="board-wrapper">
+            <svg id="game-board" xmlns="http://www.w3.org/2000/svg">
+                <!-- Game content will be rendered here -->
+            </svg>
+
+            <!-- Overlays -->
+            <div id="overlay-ready" class="overlay hidden">READY!</div>
+            <div id="overlay-paused" class="overlay hidden">PAUSED</div>
+            <div id="overlay-gameover" class="overlay hidden">
+                <div>GAME OVER</div>
+                <div class="sub-text">Press ENTER to Restart</div>
+            </div>
+            <div id="overlay-level-complete" class="overlay hidden">LEVEL COMPLETE</div>
+        </div>
+
+        <div id="mobile-controls">
+            <div class="d-pad-container">
+                <div class="d-pad">
+                    <div class="d-pad-empty"></div>
+                    <button id="btn-up" class="d-btn d-up" data-key="ArrowUp">▲</button>
+                    <div class="d-pad-empty"></div>
+
+                    <button id="btn-left" class="d-btn d-left" data-key="ArrowLeft">◀</button>
+                    <div class="d-pad-center"></div>
+                    <button id="btn-right" class="d-btn d-right" data-key="ArrowRight">▶</button>
+
+                    <div class="d-pad-empty"></div>
+                    <button id="btn-down" class="d-btn d-down" data-key="ArrowDown">▼</button>
+                    <div class="d-pad-empty"></div>
+                </div>
+            </div>
+            <div class="action-pad">
+                <button id="btn-pause" class="action-btn" data-key="Escape">PAUSE</button>
+            </div>
+        </div>
+
+        <div id="ui-footer">
+            <div id="lives-display">
+                <!-- Lives icons will be injected here -->
+            </div>
+            <div class="controls-hint">
+                ARROWS to Move • ESC to Pause
+            </div>
+        </div>
+    </div>
+    <script type="module" src="src/main.js"></script>
+</body>
+
+</html>
