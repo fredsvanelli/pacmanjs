@@ -105,28 +105,35 @@ export class Renderer {
     const container = document.getElementById('lives-display');
     container.innerHTML = '';
     for (let i = 0; i < lives; i++) {
-      // Simple Pacman Icon SVG
+      // Pacman Icon SVG with open mouth
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
       svg.setAttribute('width', '20');
       svg.setAttribute('height', '20');
       svg.setAttribute('viewBox', '0 0 24 24');
 
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('cx', '12');
-      circle.setAttribute('cy', '12');
-      circle.setAttribute('r', '10');
-      circle.setAttribute('fill', '#FFFF00');
-
-      // Mouth wedge (simple path)
+      // Draw Pac-Man as a path with mouth open (facing right)
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', 'M 12 12 L 22 12 L 22 22 Z'); // Rough wedge
-      path.setAttribute('fill', '#000'); // Background color to "cut"
+      const r = 10;
+      const cx = 12;
+      const cy = 12;
+      const mouthAngle = 30; // degrees
+      const startAngle = mouthAngle;
+      const endAngle = 360 - mouthAngle;
 
-      svg.appendChild(circle);
-      // svg.appendChild(path); // Actually, better to draw the pacman shape directly like in entity
+      // Convert to radians
+      const startRad = (startAngle * Math.PI) / 180;
+      const endRad = (endAngle * Math.PI) / 180;
 
-      // Let's just use a yellow circle for now for simplicity
+      const x1 = cx + r * Math.cos(startRad);
+      const y1 = cy + r * Math.sin(startRad);
+      const x2 = cx + r * Math.cos(endRad);
+      const y2 = cy + r * Math.sin(endRad);
 
+      const d = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 1 1 ${x2} ${y2} Z`;
+      path.setAttribute('d', d);
+      path.setAttribute('fill', '#FFFF00');
+
+      svg.appendChild(path);
       container.appendChild(svg);
     }
   }

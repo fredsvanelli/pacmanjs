@@ -111,6 +111,15 @@ body {
     }
 }
 
+/* Visibility helpers */
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
 /* Mobile Controls (Hidden by default) */
 #mobile-controls {
     display: none;
@@ -264,5 +273,13 @@ body {
 
     #ui-footer {
         font-size: 12px;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none;
     }
 }

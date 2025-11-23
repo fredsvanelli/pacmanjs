@@ -119,6 +119,7 @@ export class Game {
   setState(newState) {
     this.state = newState;
     this.renderer.updateOverlay(this.state);
+    this.updateMobileButton();
 
     if (newState === GAME_STATES.READY) {
       setTimeout(() => {
@@ -341,6 +342,19 @@ export class Game {
       if (this.state === GAME_STATES.GAME_OVER) {
         this.restart();
       }
+    }
+  }
+
+  updateMobileButton() {
+    const pauseBtn = document.getElementById('btn-pause');
+    if (!pauseBtn) return;
+
+    if (this.state === GAME_STATES.GAME_OVER) {
+      pauseBtn.textContent = 'START';
+      pauseBtn.setAttribute('data-key', 'Enter');
+    } else {
+      pauseBtn.textContent = 'PAUSE';
+      pauseBtn.setAttribute('data-key', 'Escape');
     }
   }
 

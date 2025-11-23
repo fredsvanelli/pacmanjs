@@ -12,7 +12,7 @@ export class Pacman {
     this.state = 'alive'; // alive, dying, dead
 
     this.element = null; // SVG element
-    this.mouthOpen = 0; // 0 to 1
+    this.mouthOpen = 0.35; // 0 to 1 (classic pizza shape ~45 degrees)
     this.mouthSpeed = 3; // Animation speed (was 10, too fast)
     this.mouthDir = 1; // Opening or closing
   }
@@ -68,9 +68,15 @@ export class Pacman {
         if (this.direction === DIRECTIONS.UP) this.offsetY -= dist;
         if (this.direction === DIRECTIONS.DOWN) this.offsetY += dist;
       } else {
-        // Hit wall, snap to center
-        this.offsetX = 0;
-        this.offsetY = 0;
+        // Hit wall, ease to center instead of instant snap
+        // Use exponential ease-out for smooth deceleration
+        const easeSpeed = 10; // Higher = faster ease
+        this.offsetX += (0 - this.offsetX) * easeSpeed * dt;
+        this.offsetY += (0 - this.offsetY) * easeSpeed * dt;
+
+        // Snap to exactly 0 when very close to avoid floating point drift
+        if (Math.abs(this.offsetX) < 0.01) this.offsetX = 0;
+        if (Math.abs(this.offsetY) < 0.01) this.offsetY = 0;
       }
 
       // 3. Handle Tile Crossing
@@ -97,17 +103,17 @@ export class Pacman {
     if (this.direction !== DIRECTIONS.NONE) {
       this.mouthOpen += this.mouthSpeed * dt * this.mouthDir;
 
-      if (this.mouthOpen >= 0.25) {
-        this.mouthOpen = 0.25;
+      if (this.mouthOpen >= 0.4) { // Classic pizza shape
+        this.mouthOpen = 0.4;
         this.mouthDir = -1;
       }
-      if (this.mouthOpen <= 0) {
-        this.mouthOpen = 0;
+      if (this.mouthOpen <= 0.05) { // Slightly open
+        this.mouthOpen = 0.05;
         this.mouthDir = 1;
       }
     } else {
       // Close mouth if stopped
-      this.mouthOpen = 0;
+      this.mouthOpen = 0.05;
     }
 
     this.updateVisuals();
