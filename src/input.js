@@ -15,18 +15,15 @@ export class InputHandler {
     const buttons = document.querySelectorAll('.d-btn, .action-btn');
 
     buttons.forEach(btn => {
-      const key = btn.getAttribute('data-key');
-
       // Handle Touch/Click
       const handleInput = (e) => {
         e.preventDefault(); // Prevent default browser behavior (zooming, scrolling)
 
+        // Read data-key at click time (not setup time) so it works when dynamically changed
+        const key = btn.getAttribute('data-key');
+
         // Simulate KeyDown
         this.handleKeyDown({ code: key });
-
-        // For visual feedback or momentary actions, we might want KeyUp too?
-        // For movement (lastDirection), KeyDown is enough.
-        // For Pause (Escape), KeyDown triggers the event.
 
         // Simulate KeyUp after a short delay for button press effect logic if needed
         setTimeout(() => {
